@@ -9,12 +9,11 @@ namespace RandomAvatar
 {
     public class RandomAvatarHandler: IHttpHandler
     {
+
+
         public RequestContext RequestContext { get; set; }
         public void ProcessRequest(HttpContext context)
         {
-            int imageID = int.Parse((string)context.Request.RequestContext.RouteData.Values["ImageID"]);
-
-            //context.Response.Write("imageis"+imageID);
             var image = new RandomAvatarBuilder(12).Build().generate();
 
             context.Response.BinaryWrite(ImageToBuffer(image, ImageFormat.Png));
