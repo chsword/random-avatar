@@ -11,5 +11,5 @@ http://url/image/x
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/6.png)
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/7.png)
 
-ref:
+reference:
 https://github.com/hackrslab/random-avatar
