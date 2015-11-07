@@ -12,7 +12,7 @@ namespace RandomAvatar
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            RouteTable.Routes.Add(new Route("Image/{ImageID}", new MyHandlerRouteHandler()));
+            RouteTable.Routes.Add(new Route("image/{seed}", new AvatarHandlerRouteHandler()));
         }
 
         protected void Session_Start(object sender, EventArgs e)

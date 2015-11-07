@@ -14,13 +14,13 @@ namespace RandomAvatar
         public RequestContext RequestContext { get; set; }
         public void ProcessRequest(HttpContext context)
         {
-            var image = new RandomAvatarBuilder(12).Build().generate();
+            var image = new RandomAvatarBuilder(112,4,false).Build().Generate();
 
             context.Response.BinaryWrite(ImageToBuffer(image, ImageFormat.Png));
             context.Response.ContentType = "image/png";
             context.Response.End();
         }
-         public static byte[] ImageToBuffer(Image image, System.Drawing.Imaging.ImageFormat imageFormat)
+         public static byte[] ImageToBuffer(Image image, ImageFormat imageFormat)
         {
             if (image == null) { return null; }
             byte[] data = null;

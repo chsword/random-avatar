@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace RandomAvatar
 {
@@ -12,45 +13,43 @@ namespace RandomAvatar
         public int BlockSize { get; set; }
         public bool Asymmetry { get; set; }
         public List<Color> Colors { get; set; }
-        public Color BackgroundColor { get; set; } // -1 is transparent
+ 
         public Color FontColor { get; set; }
         public int Padding { get; set; }
-        // private AvatarCache cache;
 
-
-   
-
-        public Image generate() 
+        public Image Generate()
         {
-            
-            setDefaultOptions();
-            bool[] blocks = null;
-            while (!validate(blocks)) {
-                blocks = generateRandomBlocks(null);
-            }
-            Bitmap avatar = new Bitmap(SquareSize + Padding * 2, SquareSize + Padding * 2);
-            GenerateAvatar(avatar, blocks);
-            return avatar;
-        }
- 
 
-        void setDefaultOptions()
+            SetDefaultOptions();
+            bool[] blocks = null;
+            while (!Validate(blocks))
+            {
+                blocks = GenerateRandomBlocks();
+            }
+            Bitmap avatar = new Bitmap(SquareSize + Padding*2, SquareSize + Padding*2);
+
+            DrawAvatar(avatar, blocks);
+            return avatar;
+
+        }
+
+
+        void SetDefaultOptions()
         {
             SquareSize = SquareSize > 0 ? SquareSize : 100;
             BlockSize = BlockSize >= 3 ? BlockSize : 5;
         }
 
-        bool validate(bool[] blocks)
+        bool Validate(bool[] blocks)
         {
             if (blocks == null)
             {
                 return false;
             }
-            int count = 0;
-            foreach (bool block in blocks)
-            {
-                count = block ? count + 1 : count;
-            }
+            var count =
+                blocks.Aggregate(0,
+                    (current, block) => block ? current + 1 : current
+                    );
             if (2 < BlockSize && count < 6)
             {
                 return false;
@@ -62,7 +61,7 @@ namespace RandomAvatar
             return true;
         }
 
-        bool[] generateRandomBlocks(String seed)
+        bool[] GenerateRandomBlocks()
         {
             bool[] blocks = new bool[BlockSize * BlockSize];
             for (int y = 0; y < BlockSize; y++)
@@ -76,14 +75,14 @@ namespace RandomAvatar
                     }
                     else
                     {
-                        blocks[index] = nextbool();
+                        blocks[index] = NextBool();
                     }
                 }
             }
             return blocks;
         }
 
-        bool nextbool()
+        bool NextBool()
         {
             try
             {
@@ -95,59 +94,52 @@ namespace RandomAvatar
             }
         }
 
-    
 
-        void GenerateAvatar(Image avatar, bool[] blocks)
+
+        private void DrawAvatar(Image avatar, bool[] blocks)
         {
-            var g = Graphics.FromImage(avatar);
-            int size = SquareSize / BlockSize;
-            var index = Guid.NewGuid().ToByteArray()[0]%Colors.Count;
-            Color color = Colors[index];
-            int holeBlockSizeX = 0;
-            int holeBlockSizeY = 0;
-        
-            // background
-            if (BackgroundColor != Color.Transparent)
+            using (var g = Graphics.FromImage(avatar))
             {
-
-                g.Clear(BackgroundColor);
-                g.FillRectangle(new SolidBrush(BackgroundColor),
-                    new Rectangle(0, 0, SquareSize + Padding*2, SquareSize + Padding*2));
-            }
-
- 
-                holeBlockSizeY = BlockSize / 2;
-            for (int y = 0; y < BlockSize; y++)
-            {
-                for (int x = 0; x < BlockSize; x++)
+                int size = SquareSize/BlockSize;
+                var index = Guid.NewGuid().ToByteArray()[0]%Colors.Count;
+                Color color = Colors[index];
+                int holeBlockSizeX = 0;
+                int holeBlockSizeY = 0;
+                g.Clear(color);
+               
+                holeBlockSizeY = BlockSize/2;
+                for (int y = 0; y < BlockSize; y++)
                 {
-                    if (y < holeBlockSizeY && x < holeBlockSizeX)
+                    for (int x = 0; x < BlockSize; x++)
                     {
-                        continue;
+                        if (y < holeBlockSizeY && x < holeBlockSizeX)
+                        {
+                            continue;
+                        }
+                        if (blocks[y*BlockSize + x])
+                        {
+                            Brush brush = new SolidBrush(Color.White);
+                            g.FillRectangle(brush,
+                                new Rectangle(Padding + x*size, Padding + y*size, size, size)
+                                );
+                        }
                     }
-                    if (blocks[y * BlockSize + x])
-                    {
-                        Brush brush = new SolidBrush(color);
-                        g.FillRectangle(brush,
-                            new Rectangle(Padding + x*size, Padding + y*size, size, size)
-                            );
-                    }
+                   
+
                 }
-
-                Font f = new Font(new FontFamily("Arial Black"), 
-                    (int)(holeBlockSizeY * size * 0.65)
-                    );
-
-               // Brush brush1 = new SolidBrush(Colors[(index + 1)%Colors.Count]);
-                
-               // g.DrawString("BC", f, brush1, 10, 10);
+                RenderFont(g);
             }
         }
- 
 
- 
+        private void RenderFont(Graphics graphics)
+        {
+            //Font f = new Font(new FontFamily("Arial Black"), 
+            //    (int)(holeBlockSizeY * size * 0.65)
+            //    );
 
-       
- 
+            // Brush brush1 = new SolidBrush(Colors[(index + 1)%Colors.Count]);
+
+            // g.DrawString("BC", f, brush1, 10, 10);
+        }
     }
 }
