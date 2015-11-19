@@ -63,6 +63,8 @@ namespace RandomAvatar
 
         bool[] GenerateRandomBlocks()
         {
+            var bytes = Guid.NewGuid().ToByteArray();
+            int i = 0;
             bool[] blocks = new bool[BlockSize * BlockSize];
             for (int y = 0; y < BlockSize; y++)
             {
@@ -75,25 +77,13 @@ namespace RandomAvatar
                     }
                     else
                     {
-                        blocks[index] = NextBool();
+                        blocks[index] = (bytes[i++] %2)==0;
                     }
                 }
             }
             return blocks;
         }
-
-        bool NextBool()
-        {
-            try
-            {
-                return Guid.NewGuid().ToByteArray()[0]%2 == 0;
-            }
-            catch (Exception e)
-            {
-                return new Random().Next()%2 == 0;
-            }
-        }
-
+ 
 
 
         private void DrawAvatar(Image avatar, bool[] blocks)

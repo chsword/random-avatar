@@ -7,8 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomAvatar", "RandomAvata
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69F86E73-7AEF-479F-ABCF-C3B1FA527281}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		..\README.md = ..\README.md
 	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RandomAvatar.VNext", "RandomAvatar.VNext\RandomAvatar.VNext.xproj", "{28F07E26-5BB8-48F1-83AB-CE0F8AD301D1}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RandomAvator.Core", "RandomAvator.Core\RandomAvator.Core.xproj", "{E0C1B76A-FE12-4928-B560-0A4FD0C67806}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +25,14 @@ Global
 		{DE415B25-1EA8-40CD-90D1-A703BED334D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE415B25-1EA8-40CD-90D1-A703BED334D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE415B25-1EA8-40CD-90D1-A703BED334D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F07E26-5BB8-48F1-83AB-CE0F8AD301D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F07E26-5BB8-48F1-83AB-CE0F8AD301D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F07E26-5BB8-48F1-83AB-CE0F8AD301D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F07E26-5BB8-48F1-83AB-CE0F8AD301D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0C1B76A-FE12-4928-B560-0A4FD0C67806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0C1B76A-FE12-4928-B560-0A4FD0C67806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0C1B76A-FE12-4928-B560-0A4FD0C67806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0C1B76A-FE12-4928-B560-0A4FD0C67806}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
