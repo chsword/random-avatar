@@ -77,7 +77,7 @@ namespace RandomAvatar
                     }
                     else
                     {
-                        blocks[index] = (bytes[i++] %2)==0;
+                        blocks[index] = (bytes[i++]%2) == 0;
                     }
                 }
             }
