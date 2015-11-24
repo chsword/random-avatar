@@ -9,9 +9,9 @@ http://url/image/x
 
 Code:
 
-`var bytes = RandomAvatarBuilder.Build(112).SetPadding(4).ToBytes();`
+`var bytes = RandomAvatarBuilder.Build(100).SetPadding(5).ToBytes();`
 
-`var image = RandomAvatarBuilder.Build(112).SetPadding(4).ToImage();`
+`var image = RandomAvatarBuilder.Build(100).SetPadding(5).ToImage();`
 
 
 ## example
