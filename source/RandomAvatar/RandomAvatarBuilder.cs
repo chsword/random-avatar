@@ -8,9 +8,9 @@ namespace RandomAvatar
 {
     public class RandomAvatarBuilder
     {
-        public static RandomAvatarBuilder Build(int size, bool asymmetry = true)
+        public static RandomAvatarBuilder Build(int size, bool isSymmetry = true)
         {
-            return new RandomAvatarBuilder(size, asymmetry);
+            return new RandomAvatarBuilder(size, isSymmetry);
         }
         
         private static readonly List<Color> Colors = new List<Color>()
@@ -30,14 +30,14 @@ namespace RandomAvatar
 
         private readonly RandomAvatar _instance;
 
-        private RandomAvatarBuilder(int size, bool asymmetry = true)
+        private RandomAvatarBuilder(int size, bool isSymmetry = true)
         {
             _instance = new RandomAvatar
             {
                 SquareSize = size,
                 FontColor = Color.White,
                 Colors = Colors,
-                Asymmetry = asymmetry
+                IsSymmetry = isSymmetry
             };
         }
 
@@ -47,9 +47,9 @@ namespace RandomAvatar
             return this;
         }
 
-        public RandomAvatarBuilder SetAsymmetry(bool asymmetry = true)
+        public RandomAvatarBuilder SetAsymmetry(bool isSymmetry = true)
         {
-            _instance.Asymmetry = asymmetry;
+            _instance.IsSymmetry = isSymmetry;
             return this;
         }
         public RandomAvatarBuilder SetBlockSize(int blockSize)
@@ -77,15 +77,15 @@ namespace RandomAvatar
         {
             if (image == null) { return null; }
             byte[] data;
-            using (MemoryStream oMemoryStream = new MemoryStream())
+            using (MemoryStream stream = new MemoryStream())
             {
-                using (Bitmap oBitmap = new Bitmap(image))
+                using (Bitmap bitmap = new Bitmap(image))
                 {
-                    oBitmap.Save(oMemoryStream, imageFormat);
-                    oMemoryStream.Position = 0;
-                    data = new byte[oMemoryStream.Length];
-                    oMemoryStream.Read(data, 0, Convert.ToInt32(oMemoryStream.Length));
-                    oMemoryStream.Flush();
+                    bitmap.Save(stream, imageFormat);
+                    stream.Position = 0;
+                    data = new byte[stream.Length];
+                    stream.Read(data, 0, Convert.ToInt32(stream.Length));
+                    stream.Flush();
                 }
             }
             return data;

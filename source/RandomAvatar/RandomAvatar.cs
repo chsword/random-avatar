@@ -11,7 +11,7 @@ namespace RandomAvatar
         public int SquareSize { get; set; }
     
         public int BlockSize { get; set; }
-        public bool Asymmetry { get; set; }
+        public bool IsSymmetry { get; set; }
         public List<Color> Colors { get; set; }
  
         public Color FontColor { get; set; }
@@ -65,34 +65,42 @@ namespace RandomAvatar
         bool[] GenerateRandomBlocks()
         {
  
-            int i = 0;
+           
             bool[] blocks = new bool[BlockSize * BlockSize];
             for (int y = 0; y < BlockSize; y++)
             {
                 for (int x = 0; x < BlockSize; x++)
                 {
                     int index = y * BlockSize + x;
-                    if (BlockSize / 2 < x && !Asymmetry)
+                    if (BlockSize / 2 < x && IsSymmetry)
                     {
                         blocks[index] = blocks[index - x + BlockSize - x - 1];
                     }
                     else
                     {
-                        blocks[index] = (_guidBytes[i++]%2) == 0;
+                        blocks[index] = (GetNextByte()%2) == 0;
                     }
                 }
             }
             return blocks;
         }
- 
-
+        int _i = 0;
+        public byte GetNextByte()
+        {
+            if (_i >= _guidBytes.Length)
+            {
+                _i = 0;
+                _guidBytes = Guid.NewGuid().ToByteArray();
+            }
+            return _guidBytes[_i++];
+        }
 
         private void DrawAvatar(Image avatar, bool[] blocks)
         {
             using (var g = Graphics.FromImage(avatar))
             {
                 int size = SquareSize/BlockSize;
-                var index = _guidBytes.LastOrDefault()%Colors.Count;
+                var index = GetNextByte() % Colors.Count;
                 Color color = Colors[index];
                 int holeBlockSizeX = 0;
                 int holeBlockSizeY = 0;

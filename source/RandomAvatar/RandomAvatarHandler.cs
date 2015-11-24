@@ -9,7 +9,7 @@ namespace RandomAvatar
 
         public void ProcessRequest(HttpContext context)
         {
-            var bytes = RandomAvatarBuilder.Build(112).SetPadding(4).ToBytes();
+            var bytes = RandomAvatarBuilder.Build(100).SetPadding(4).ToBytes();
             context.Response.BinaryWrite(bytes);
             context.Response.ContentType = "image/png";
             context.Response.End();
