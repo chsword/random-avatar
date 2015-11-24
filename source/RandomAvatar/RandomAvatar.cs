@@ -7,7 +7,7 @@ namespace RandomAvatar
 {
     public class RandomAvatar
     {
-
+         
         public int SquareSize { get; set; }
     
         public int BlockSize { get; set; }
