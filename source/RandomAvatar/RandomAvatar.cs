@@ -9,13 +9,15 @@ namespace RandomAvatar
     {
         private byte[] _guidBytes;
         public int SquareSize { get; set; }
-    
+
         public int BlockSize { get; set; }
         public bool IsSymmetry { get; set; }
         public List<Color> Colors { get; set; }
  
         public Color FontColor { get; set; }
         public int Padding { get; set; }
+
+        int RealSize => SquareSize - Padding * 2;
 
         public Image GenerateImage()
         {
@@ -26,7 +28,7 @@ namespace RandomAvatar
             {
                 blocks = GenerateRandomBlocks();
             }
-            Bitmap avatar = new Bitmap(SquareSize + Padding*2, SquareSize + Padding*2);
+            Bitmap avatar = new Bitmap(RealSize + Padding*2, RealSize + Padding*2);
 
             DrawAvatar(avatar, blocks);
             return avatar;
@@ -99,7 +101,7 @@ namespace RandomAvatar
         {
             using (var g = Graphics.FromImage(avatar))
             {
-                int size = SquareSize/BlockSize;
+                int size = RealSize / BlockSize;
                 var index = GetNextByte() % Colors.Count;
                 Color color = Colors[index];
                 int holeBlockSizeX = 0;
