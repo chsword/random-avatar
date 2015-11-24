@@ -22,7 +22,7 @@ dissymmetry
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/3.png)
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/4.png)
 
-asymmetry
+symmetry
 
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/5.png)
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/6.png)
