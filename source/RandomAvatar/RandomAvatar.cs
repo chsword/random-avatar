@@ -7,7 +7,7 @@ namespace RandomAvatar
 {
     public class RandomAvatar
     {
-         
+        private byte[] _guidBytes;
         public int SquareSize { get; set; }
     
         public int BlockSize { get; set; }
@@ -17,7 +17,7 @@ namespace RandomAvatar
         public Color FontColor { get; set; }
         public int Padding { get; set; }
 
-        public Image Generate()
+        public Image GenerateImage()
         {
 
             SetDefaultOptions();
@@ -36,6 +36,7 @@ namespace RandomAvatar
 
         void SetDefaultOptions()
         {
+            _guidBytes= Guid.NewGuid().ToByteArray();
             SquareSize = SquareSize > 0 ? SquareSize : 100;
             BlockSize = BlockSize >= 3 ? BlockSize : 5;
         }
@@ -63,7 +64,7 @@ namespace RandomAvatar
 
         bool[] GenerateRandomBlocks()
         {
-            var bytes = Guid.NewGuid().ToByteArray();
+ 
             int i = 0;
             bool[] blocks = new bool[BlockSize * BlockSize];
             for (int y = 0; y < BlockSize; y++)
@@ -77,7 +78,7 @@ namespace RandomAvatar
                     }
                     else
                     {
-                        blocks[index] = (bytes[i++]%2) == 0;
+                        blocks[index] = (_guidBytes[i++]%2) == 0;
                     }
                 }
             }
@@ -91,7 +92,7 @@ namespace RandomAvatar
             using (var g = Graphics.FromImage(avatar))
             {
                 int size = SquareSize/BlockSize;
-                var index = Guid.NewGuid().ToByteArray()[0]%Colors.Count;
+                var index = _guidBytes.LastOrDefault()%Colors.Count;
                 Color color = Colors[index];
                 int holeBlockSizeX = 0;
                 int holeBlockSizeY = 0;

@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace RandomAvatar
 {
     public class RandomAvatarBuilder
     {
-        private readonly int _squareSize;
-        private readonly int _blockSize;
-        private readonly bool _asymmetry;
- 
-        private readonly int _padding;
-        private readonly Color _fontColor = Color.White;
-
-        private readonly List<Color> _colors = new List<Color>()
+        public static RandomAvatarBuilder Build(int size, bool asymmetry = true)
+        {
+            return new RandomAvatarBuilder(size, asymmetry);
+        }
+        
+        private static readonly List<Color> Colors = new List<Color>()
         {
             Color.FromArgb(127, 127, 220),
             Color.FromArgb(100, 207, 172),
@@ -27,28 +28,67 @@ namespace RandomAvatar
             Color.FromArgb(0xb5, 0x44, 0xec),
         };
 
-        public RandomAvatarBuilder(int size,int padding, bool asymmetry=false)
+        private readonly RandomAvatar _instance;
+
+        private RandomAvatarBuilder(int size, bool asymmetry = true)
         {
-            this._padding = padding;
-            //this._blockSize = blockSize;
-            _squareSize = size;
-            this._asymmetry = asymmetry;
+            _instance = new RandomAvatar
+            {
+                SquareSize = size,
+                FontColor = Color.White,
+                Colors = Colors,
+                Asymmetry = asymmetry
+            };
         }
-        public RandomAvatar Build()
+
+        public RandomAvatarBuilder SetPadding(int padding)
         {
+            _instance.Padding = padding;
+            return this;
+        }
 
-            RandomAvatar instance = new RandomAvatar();
-            instance.SquareSize = _squareSize;
-            instance.BlockSize = _blockSize;
-            instance.Asymmetry = _asymmetry;
+        public RandomAvatarBuilder SetAsymmetry(bool asymmetry = true)
+        {
+            _instance.Asymmetry = asymmetry;
+            return this;
+        }
+        public RandomAvatarBuilder SetBlockSize(int blockSize)
+        {
+            _instance.BlockSize = blockSize;
+            return this;
+        }
+        public RandomAvatarBuilder SetFontColor(Color fontColor)
+        {
+            _instance.FontColor = fontColor;
+            return this;
+        }
+        public Image ToImage()
+        {
+            return _instance.GenerateImage();
+        }
 
-            instance.Padding = _padding;
-            instance.Colors = this._colors;
-            instance.Padding = _padding;
-             
-            instance.FontColor = _fontColor;
-             
-            return instance;
+        public byte[] ToBytes()
+        {
+            var image = ToImage();
+            return ImageToBuffer(image, ImageFormat.Png);
+        }
+
+        public static byte[] ImageToBuffer(Image image, ImageFormat imageFormat)
+        {
+            if (image == null) { return null; }
+            byte[] data;
+            using (MemoryStream oMemoryStream = new MemoryStream())
+            {
+                using (Bitmap oBitmap = new Bitmap(image))
+                {
+                    oBitmap.Save(oMemoryStream, imageFormat);
+                    oMemoryStream.Position = 0;
+                    data = new byte[oMemoryStream.Length];
+                    oMemoryStream.Read(data, 0, Convert.ToInt32(oMemoryStream.Length));
+                    oMemoryStream.Flush();
+                }
+            }
+            return data;
         }
     }
 }
