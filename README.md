@@ -5,7 +5,7 @@
 
 Web:
 
-http://url/image/x
+http://url/avatar/x
 
 Code:
 
