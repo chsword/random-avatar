@@ -80,13 +80,13 @@ namespace RandomAvatar
                     }
                     else
                     {
-                        blocks[index] = (GetNextByte()%2) == 0;
+                        blocks[index] = (GetNextByte()&1) == 0;
                     }
                 }
             }
             return blocks;
         }
-        int _i = 0;
+        int _i;
         public byte GetNextByte()
         {
             if (_i >= _guidBytes.Length)
@@ -105,10 +105,8 @@ namespace RandomAvatar
                 var index = GetNextByte() % Colors.Count;
                 Color color = Colors[index];
                 int holeBlockSizeX = 0;
-                int holeBlockSizeY = 0;
+                var holeBlockSizeY = BlockSize / 2;
                 g.Clear(color);
-               
-                holeBlockSizeY = BlockSize/2;
                 for (int y = 0; y < BlockSize; y++)
                 {
                     for (int x = 0; x < BlockSize; x++)
@@ -117,30 +115,28 @@ namespace RandomAvatar
                         {
                             continue;
                         }
-                        if (blocks[y*BlockSize + x])
-                        {
-                            Brush brush = new SolidBrush(Color.White);
-                            g.FillRectangle(brush,
-                                new Rectangle(Padding + x*size, Padding + y*size, size, size)
-                                );
-                        }
+                        if (!blocks[y*BlockSize + x]) continue;
+                        Brush brush = new SolidBrush(Color.White);
+                        g.FillRectangle(brush,
+                            new Rectangle(Padding + x*size, Padding + y*size, size, size)
+                            );
                     }
                    
 
                 }
-                RenderFont(g);
+                //RenderFont(g);
             }
         }
 
-        private void RenderFont(Graphics graphics)
-        {
-            //Font f = new Font(new FontFamily("Arial Black"), 
-            //    (int)(holeBlockSizeY * size * 0.65)
-            //    );
+        //private void RenderFont(Graphics graphics)
+        //{
+        //    //Font f = new Font(new FontFamily("Arial Black"), 
+        //    //    (int)(holeBlockSizeY * size * 0.65)
+        //    //    );
 
-            // Brush brush1 = new SolidBrush(Colors[(index + 1)%Colors.Count]);
+        //    // Brush brush1 = new SolidBrush(Colors[(index + 1)%Colors.Count]);
 
-            // g.DrawString("BC", f, brush1, 10, 10);
-        }
+        //    // g.DrawString("BC", f, brush1, 10, 10);
+        //}
     }
 }
