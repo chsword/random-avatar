@@ -51,8 +51,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <None Include="Properties\PublishProfiles\Online.DO.Avatar.WebUI.pubxml" />
-    <None Include="Properties\PublishProfiles\Online.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -73,6 +71,9 @@
     <Compile Include="RandomAvatar.cs" />
     <Compile Include="RandomAvatarException.cs" />
     <Compile Include="RandomAvatarHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
