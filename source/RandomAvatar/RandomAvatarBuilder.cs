@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 
 namespace RandomAvatar
 {
@@ -89,6 +90,17 @@ namespace RandomAvatar
                 }
             }
             return data;
+        }
+
+        public RandomAvatarBuilder FixedSeed(bool fixedSeed, string seed)
+        {
+            _instance.FixedSeed = fixedSeed;
+            if (fixedSeed && !string.IsNullOrWhiteSpace(seed))
+            {
+                _instance.Seed = Encoding.UTF8.GetBytes(seed);
+            }
+            return this;
+
         }
     }
 }
