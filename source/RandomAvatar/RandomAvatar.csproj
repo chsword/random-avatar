@@ -51,6 +51,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
