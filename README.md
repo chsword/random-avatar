@@ -28,6 +28,16 @@ http://url/avatar/x
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/6.png)
 ![](https://raw.githubusercontent.com/chsword/random-avatar/master/example/7.png)
 
+### 其它特性 Other feature
+
+如果需要固定生成的功能可以访问
+
+url/face/seed
+
+如
+
+`url/face/chsword@126.com`
+
 ### 引用，Reference:
 
 https://github.com/hackrslab/random-avatar
