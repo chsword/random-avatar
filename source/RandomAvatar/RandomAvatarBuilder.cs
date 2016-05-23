@@ -97,6 +97,8 @@ namespace RandomAvatar
             _instance.FixedSeed = fixedSeed;
             if (fixedSeed && !string.IsNullOrWhiteSpace(seed))
             {
+                if (seed.Length < 3)
+                    seed = $"RA{seed}";
                 _instance.Seed = Encoding.UTF8.GetBytes(seed);
             }
             return this;
