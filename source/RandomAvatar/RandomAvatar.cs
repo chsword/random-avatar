@@ -13,28 +13,25 @@ namespace RandomAvatar
         public int BlockSize { get; set; }
         public bool IsSymmetry { get; set; }
         public List<Color> Colors { get; set; }
- 
+
         public Color FontColor { get; set; }
         public int Padding { get; set; }
 
-        int RealSize => SquareSize - Padding * 2;
+        int RealSize => SquareSize - (Padding * 2);
         public bool FixedSeed { get; set; }
         public byte[] Seed { get; set; }
 
         public Image GenerateImage()
         {
-
             SetDefaultOptions();
             bool[] blocks = null;
             while (!Validate(blocks))
             {
                 blocks = GenerateRandomBlocks();
             }
-            Bitmap avatar = new Bitmap(RealSize + Padding*2, RealSize + Padding*2);
-
+            Bitmap avatar = new Bitmap(RealSize + (Padding * 2), RealSize + (Padding * 2));
             DrawAvatar(avatar, blocks);
             return avatar;
-
         }
 
 
@@ -73,14 +70,14 @@ namespace RandomAvatar
             {
                 for (int x = 0; x < BlockSize; x++)
                 {
-                    int index = y * BlockSize + x;
+                    int index = (y * BlockSize) + x;
                     if (BlockSize / 2 < x && IsSymmetry)
                     {
                         blocks[index] = blocks[index - x + BlockSize - x - 1];
                     }
                     else
                     {
-                        blocks[index] = (GetNextByte()&1) == 0;
+                        blocks[index] = (GetNextByte() & 1) == 0;
                     }
                 }
             }
@@ -120,14 +117,12 @@ namespace RandomAvatar
                         {
                             continue;
                         }
-                        if (!blocks[y*BlockSize + x]) continue;
+                        if (!blocks[y * BlockSize + x]) continue;
                         Brush brush = new SolidBrush(Color.White);
                         g.FillRectangle(brush,
-                            new Rectangle(Padding + x*size, Padding + y*size, size, size)
+                            new Rectangle(Padding + (x * size), Padding + (y * size), size, size)
                             );
                     }
-                   
-
                 }
                 //RenderFont(g);
             }
