@@ -76,7 +76,9 @@ namespace RandomAvatar
 
         public static byte[] ImageToBuffer(Image image, ImageFormat imageFormat)
         {
-            if (image == null) { return null; }
+            if (image == null) {
+                return null;
+            }
             byte[] data;
             using (MemoryStream stream = new MemoryStream())
             {

@@ -6,13 +6,10 @@ namespace RandomAvatar
     {
         public RandomAvatarException(Exception ex) : base("", ex)
         {
-
         }
 
         public RandomAvatarException(string message) : base(message)
         {
-
         }
     }
-
 }
