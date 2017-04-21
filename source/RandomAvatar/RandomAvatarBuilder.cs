@@ -13,7 +13,7 @@ namespace RandomAvatar
         {
             return new RandomAvatarBuilder(size, isSymmetry);
         }
-        
+
         private static readonly List<Color> Colors = new List<Color>()
         {
             Color.FromArgb(127, 127, 220),
@@ -102,7 +102,6 @@ namespace RandomAvatar
                 _instance.Seed = Encoding.UTF8.GetBytes(seed);
             }
             return this;
-
         }
     }
 }

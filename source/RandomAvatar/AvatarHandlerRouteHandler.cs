@@ -7,11 +7,10 @@ namespace RandomAvatar
     {
         public IHttpHandler GetHttpHandler(RequestContext requestContext)
         {
-            
-            var handler= new RandomAvatarHandler()
+            var handler = new RandomAvatarHandler()
             {
                 RequestContext = requestContext,
-                FixedSeed= FixedSeed
+                FixedSeed = FixedSeed
             };
             if (FixedSeed)
             {
