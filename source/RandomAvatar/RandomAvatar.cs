@@ -34,7 +34,6 @@ namespace RandomAvatar
             return avatar;
         }
 
-
         void SetDefaultOptions()
         {
             SetBytes();
@@ -117,7 +116,7 @@ namespace RandomAvatar
                         {
                             continue;
                         }
-                        if (!blocks[y * BlockSize + x]) continue;
+                        if (!blocks[(y * BlockSize) + x]) continue;
                         Brush brush = new SolidBrush(Color.White);
                         g.FillRectangle(brush,
                             new Rectangle(Padding + (x * size), Padding + (y * size), size, size)
