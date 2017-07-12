@@ -2,7 +2,6 @@
 
 namespace RandomAvatar
 {
-    [Serializable]
     public class RandomAvatarException : Exception
     {
         public RandomAvatarException(Exception ex) : base("", ex)
