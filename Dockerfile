@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore
+FROM microsoft/dotnet
 COPY source/random-avatar /app
 WORKDIR /app
 
