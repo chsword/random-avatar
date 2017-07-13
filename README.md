@@ -39,6 +39,16 @@ url/face/seed
 
 `url/face/chsword@126.com`
 
+### Docker pull
+
+Use docker hub:
+``` ps
+docker pull chsword/random-avatar
+```
+Use Aliyun hub:
+``` ps
+docker pull registry.cn-hangzhou.aliyuncs.com/random-avatar/random-avatar
+```
 ### 引用，Reference:
 
 https://github.com/hackrslab/random-avatar
