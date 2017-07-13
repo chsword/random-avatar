@@ -1,10 +1,10 @@
-FROM microsoft/dotnet:1.1.2 AS build-env
+FROM microsoft/dotnet:1.1.2-sdk AS build-env
 WORKDIR /app
 COPY source/random-avatar /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-FROM microsoft/dotnet:1.1.2-runtime-jessie
+FROM microsoft/dotnet:1.1.2-runtime
 MAINTAINER chsword
 ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT Staging
