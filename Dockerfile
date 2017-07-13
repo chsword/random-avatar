@@ -1,4 +1,4 @@
-FROM microsoft/dotnet
+FROM microsoft/dotnet:1.1.2-sdk-jessie
 
 MAINTAINER chsword
 ENV ASPNETCORE_URLS http://*:80
