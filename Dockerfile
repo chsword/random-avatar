@@ -1,4 +1,5 @@
-FROM microsoft/dotnet:1.1-sdk AS build-env
+FROM microsoft/dotnet:1.1-sdk 
+
 WORKDIR /app
 COPY source/random-avatar /app
 RUN dotnet restore
