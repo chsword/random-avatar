@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.1.2-sdk-jessie AS build-env
+FROM microsoft/dotnet:1.1.2 AS build-env
 WORKDIR /app
 COPY source/random-avatar /app
 RUN dotnet restore
