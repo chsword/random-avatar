@@ -10,6 +10,6 @@ MAINTAINER chsword
 ENV ASPNETCORE_URLS http://*:80
 ENV ASPNETCORE_ENVIRONMENT Staging
 ENV PORT 80
-WORKDIR /app
-COPY --from=build-env /app/out .
+WORKDIR /app/out
+#COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "random-avatar.dll"]
