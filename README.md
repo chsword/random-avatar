@@ -14,7 +14,7 @@ http://url/avatar/x
 
 `var image = RandomAvatarBuilder.Build(100).SetPadding(5).ToImage();`
 
-For dotnet core / docker 
+## For dotnet core / docker 
 
 https://github.com/random-avatar/random-avatar
 
