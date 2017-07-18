@@ -41,6 +41,9 @@ url/face/seed
 
 ### Docker pull
 
+[![Docker Stars](https://img.shields.io/docker/stars/chsword/random-avatar.svg)](https://hub.docker.com/r/chsword/random-avatar)
+[![Docker Build Statu](https://img.shields.io/docker/build/chsword/random-avatar.svg)](https://hub.docker.com/r/chsword/random-avatar)
+
 Use docker hub:
 ``` ps
 docker pull chsword/random-avatar
