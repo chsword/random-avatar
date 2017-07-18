@@ -1,6 +1,7 @@
 ## random-avatar
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0y937m1x8g1w6ic6/branch/master?svg=true)](https://ci.appveyor.com/project/chsword/random-avatar/branch/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/chsword/random-avatar/badge)](https://www.codefactor.io/repository/github/chsword/random-avatar)
 
 ## 说明，Description
 
