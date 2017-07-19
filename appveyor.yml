@@ -1,0 +1,16 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+clone_depth: 1
+init:
+- ps: '[System.IO.File]::AppendAllText("C:\Windows\System32\drivers\etc\hosts", "`n93.184.221.200`tapi.nuget.org")'
+before_build:
+- cmd: dotnet restore source/random-avatar
+build:
+  verbosity: minimal
+after_build:
+- cmd: dotnet publish source/random-avatar
+artifacts:
+- path: source\random-avatar\bin\
+  name: dd
