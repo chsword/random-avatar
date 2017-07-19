@@ -3,9 +3,9 @@ WORKDIR /app
 
 #COPY source/random-avatar /app
 # copy csproj and restore as distinct layers
-
-RUN dotnet restore source
+COPY source ./
+RUN dotnet restore
 
 # copy and build everything else
 COPY . .
-RUN dotnet publish -c Release -o out srouce
+RUN dotnet publish -c Release -o out
