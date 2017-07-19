@@ -9,7 +9,7 @@ echo "start build container"
 docker create --name build-container build-image
 
 echo "copy dotnetapp out of build container"
-docker cp build-container:/app/out ./
+docker cp build-container:/app/source/random-avatar/out ./
 
 echo "cleanup"
 docker rm build-container 
