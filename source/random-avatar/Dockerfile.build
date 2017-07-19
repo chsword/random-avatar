@@ -1,0 +1,10 @@
+FROM microsoft/dotnet:1.1.2-sdk
+WORKDIR /app
+
+# copy csproj and restore as distinct layers
+COPY random-avatar.csproj .
+RUN dotnet restore
+
+# copy and build everything else
+COPY . .
+RUN dotnet publish -c Release -o out
