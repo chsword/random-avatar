@@ -1,10 +1,11 @@
-FROM microsoft/dotnet:1.1.2-sdk-nanoserver
+FROM microsoft/dotnet:1.1.2-sdk
 WORKDIR /app
 
+COPY source/random-avatar /app
 # copy csproj and restore as distinct layers
-COPY random-avatar.csproj ./
+
 RUN dotnet restore
 
 # copy and build everything else
-COPY . ./
+COPY . .
 RUN dotnet publish -c Release -o out
