@@ -35,16 +35,24 @@ namespace random_avatar
                 }
                 else if(context.Request.Path.Value.StartsWith("/avatar/"))
                 {
-                    new RandomAvatarHandler() { }.ProcessRequest(context);
+                    try{
+                        new RandomAvatarHandler() { }.ProcessRequest(context);
+                    }catch(Exception ex){
+                        await context.Response.WriteAsync(ex.ToString());
+                    }
                     return;
                 }
                 else if (context.Request.Path.Value.StartsWith("/face/"))
                 {
-                    //fixed seed
-                    new RandomAvatarHandler() {
-                        FixedSeed = true,
-                        Seed = context.Request.Path.Value.Substring(6)
-                    }.ProcessRequest(context);
+                    try{
+                        //fixed seed
+                        new RandomAvatarHandler() {
+                            FixedSeed = true,
+                            Seed = context.Request.Path.Value.Substring(6)
+                        }.ProcessRequest(context);
+                    }catch(Exception ex){
+                        await context.Response.WriteAsync(ex.ToString());
+                    }
                     return;
                 }
                 await context.Response.WriteAsync("Hello World!");
