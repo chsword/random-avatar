@@ -1,7 +1,7 @@
 FROM microsoft/dotnet:1.1.2-sdk
 WORKDIR /app
 
-COPY source/random-avatar /app
+#COPY source/random-avatar /app
 # copy csproj and restore as distinct layers
 
 RUN dotnet restore
