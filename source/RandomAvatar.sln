@@ -1,12 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{69F86E73-7AEF-479F-ABCF-C3B1FA527281}"
 	ProjectSection(SolutionItems) = preProject
 		..\Dockerfile = ..\Dockerfile
-		global.json = global.json
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
@@ -25,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D065F70-A9B9-413E-9A08-ACE0DC0EEE9B}
 	EndGlobalSection
 EndGlobal
