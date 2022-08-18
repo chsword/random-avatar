@@ -3,6 +3,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/0y937m1x8g1w6ic6/branch/master?svg=true)](https://ci.appveyor.com/project/chsword/random-avatar/branch/master)
 [![CodeFactor](https://www.codefactor.io/repository/github/chsword/random-avatar/badge)](https://www.codefactor.io/repository/github/chsword/random-avatar)
 
+## For dotnet core / docker 
+
+https://github.com/random-avatar/random-avatar
+
 ## 说明，Description
 
 您可以通过以下类似 URL 进行访问，You can use the following URL to access the image：
@@ -14,10 +18,6 @@ http://url/avatar/x
 `var bytes = RandomAvatarBuilder.Build(100).SetPadding(5).ToBytes();`
 
 `var image = RandomAvatarBuilder.Build(100).SetPadding(5).ToImage();`
-
-## For dotnet core / docker 
-
-https://github.com/random-avatar/random-avatar
 
 
 ## 示例，Example
