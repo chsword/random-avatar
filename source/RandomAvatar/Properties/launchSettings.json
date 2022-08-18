@@ -19,7 +19,10 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RANDOM_AVATAR_HOME": "false",
+        "RANDOM_AVATAR_SIZE": "100",
+        "RANDOM_AVATAR_PADDING": "2"
       },
       "applicationUrl": "http://localhost:49375"
     }

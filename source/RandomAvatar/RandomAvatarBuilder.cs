@@ -1,6 +1,7 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.Text;
+﻿using System.Text;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace RandomAvatar;
 
@@ -8,35 +9,36 @@ public class RandomAvatarBuilder
 {
     private static readonly List<Color> Colors = new()
     {
-        Color.FromArgb(127, 127, 220),
-        Color.FromArgb(100, 207, 172),
-        Color.FromArgb(198, 87, 181),
-        Color.FromArgb(134, 166, 220),
-        Color.FromArgb(0xf2, 0x4e, 0x33),
-        Color.FromArgb(0xf9, 0x97, 0x40),
-        Color.FromArgb(0xf9, 0xc8, 0x2f),
-        Color.FromArgb(0x14, 0xad, 0xe3),
-        Color.FromArgb(0x9e, 0xd2, 0x00),
-        Color.FromArgb(0xb5, 0x4e, 0x33),
-        Color.FromArgb(0xb5, 0x44, 0xec)
+        Color.FromRgb(127, 127, 220),
+        Color.FromRgb(100, 207, 172),
+        Color.FromRgb(198, 87, 181),
+        Color.FromRgb(134, 166, 220),
+        Color.FromRgb(0xf2, 0x4e, 0x33),
+        Color.FromRgb(0xf9, 0x97, 0x40),
+        Color.FromRgb(0xf9, 0xc8, 0x2f),
+        Color.FromRgb(0x14, 0xad, 0xe3),
+        Color.FromRgb(0x9e, 0xd2, 0x00),
+        Color.FromRgb(0xb5, 0x4e, 0x33),
+        Color.FromRgb(0xb5, 0x44, 0xec)
     };
 
     private readonly RandomAvatar _instance;
 
-    private RandomAvatarBuilder(int size, bool isSymmetry = true)
+    private RandomAvatarBuilder(int size, bool isSymmetry, string? seed)
     {
         _instance = new RandomAvatar
         {
             SquareSize = size,
             FontColor = Color.White,
             Colors = Colors,
-            IsSymmetry = isSymmetry
+            IsSymmetry = isSymmetry,
+            Seed = seed == null ? new byte[] { } : Encoding.UTF8.GetBytes(seed.Length < 3 ? $"RA{seed}" : seed)
         };
     }
 
-    public static RandomAvatarBuilder Build(int size, bool isSymmetry = true)
+    public static RandomAvatarBuilder Build(int size, bool isSymmetry = true, string? seed = null)
     {
-        return new RandomAvatarBuilder(size, isSymmetry);
+        return new RandomAvatarBuilder(size, isSymmetry, seed);
     }
 
     public RandomAvatarBuilder SetPadding(int padding)
@@ -45,7 +47,7 @@ public class RandomAvatarBuilder
         return this;
     }
 
-    public RandomAvatarBuilder SetAsymmetry(bool isSymmetry = true)
+    public RandomAvatarBuilder SetSymmetry(bool isSymmetry = true)
     {
         _instance.IsSymmetry = isSymmetry;
         return this;
@@ -53,15 +55,11 @@ public class RandomAvatarBuilder
 
     public RandomAvatarBuilder SetBlockSize(int blockSize)
     {
-        _instance.BlockSize = blockSize;
+        _instance.BlockCount = blockSize;
         return this;
     }
 
-    public RandomAvatarBuilder SetFontColor(Color fontColor)
-    {
-        _instance.FontColor = fontColor;
-        return this;
-    }
+
 
     public Image ToImage()
     {
@@ -71,38 +69,21 @@ public class RandomAvatarBuilder
     public byte[] ToBytes()
     {
         var image = ToImage();
-        return ImageToBuffer(image, ImageFormat.Png);
+        return ImageToBuffer(image, new PngEncoder());
     }
 
-    public static byte[] ImageToBuffer(Image image, ImageFormat imageFormat)
+    public static byte[] ImageToBuffer(Image image, IImageEncoder imageFormat)
     {
-        if (image == null) return null;
-        byte[] data;
-        using (var stream = new MemoryStream())
-        {
-            using (var bitmap = new Bitmap(image))
-            {
-                bitmap.Save(stream, imageFormat);
-                stream.Position = 0;
-                data = new byte[stream.Length];
-                stream.Read(data, 0, Convert.ToInt32(stream.Length));
-                stream.Flush();
-            }
-        }
+        using var stream = new MemoryStream();
+        image.Save(stream, new PngEncoder());
+
+        stream.Position = 0;
+        var data = new byte[stream.Length];
+        var t = stream.Read(data, 0, Convert.ToInt32(stream.Length));
+        stream.Flush();
 
         return data;
     }
 
-    public RandomAvatarBuilder FixedSeed(bool fixedSeed, string seed)
-    {
-        _instance.FixedSeed = fixedSeed;
-        if (fixedSeed && !string.IsNullOrWhiteSpace(seed))
-        {
-            if (seed.Length < 3)
-                seed = $"RA{seed}";
-            _instance.Seed = Encoding.UTF8.GetBytes(seed);
-        }
-
-        return this;
-    }
+  
 }
