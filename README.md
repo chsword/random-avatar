@@ -2,6 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/0y937m1x8g1w6ic6/branch/master?svg=true)](https://ci.appveyor.com/project/chsword/random-avatar/branch/master)
 
+当前已经升级 .NET 6.0
+
 ## 说明，Description
 
 您可以通过以下类似 URL 进行访问，You can use the following URL to access the image：
@@ -51,7 +53,13 @@ docker pull chsword/random-avatar
 Use Aliyun hub:
 ``` ps
 docker pull registry.cn-hangzhou.aliyuncs.com/random-avatar/random-avatar
+
 ```
+** Docker的环境变量 **
+
+
+
+
 ### 引用，Reference:
 
 https://github.com/hackrslab/random-avatar
