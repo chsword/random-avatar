@@ -7,6 +7,23 @@
 
 https://github.com/random-avatar/random-avatar
 
+```
+docker pull chsword/random-avatar:v2.0-alpine
+docker run -d -p 80:80 chsword/random-avatar:v2.0-alpine
+```
+**Docker的环境变量 **
+```
+RANDOM_AVATAR_HOME：是否显示首页，默认值 true ，取值 true|false
+RANDOM_AVATAR_SYMMETRY：生成的图像是否对称，默认值 true，取值 true|false
+RANDOM_AVATAR_SIZE：生成的图像大小，默认值 100，取值 int
+RANDOM_AVATAR_PADDING：生成的图像边距，默认值 2，取值 int
+RANDOM_AVATAR_BLOCK_COUNT：生成的图像分成多少个横纵列，默认值 6，取值 int > = 3
+```
+```
+* 注意 SZIE-PADDING 需要与 BLOCK_COUNT 是整除关系，否能可能出现边距不一致的情况
+即 MOD(SZIE-PADDING,BLOCK_COUNT)==0
+```
+
 ## 说明，Description
 
 您可以通过以下类似 URL 进行访问，You can use the following URL to access the image：
