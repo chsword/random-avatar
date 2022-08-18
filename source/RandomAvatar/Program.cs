@@ -1,50 +1,41 @@
 ﻿using RandomAvatar;
+using RandomAvatar.Renders;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<AvatarRender>();
+builder.Services.AddScoped<PageRender>();
+builder.Services.AddSingleton<AvatarEnvironment>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage();
 app.Run(async context =>
 {
     if (!context.Request.Path.HasValue || context.Request.Path == "/")
     {
-        await PageRender.Home(context);
+        var pageRender = context.RequestServices.GetService<PageRender>()!;
+        await pageRender.HomeAsync();
         return;
     }
-
-    if (context.Request.Path.Value.StartsWith("/avatar/"))
+    try
     {
-        try
+        if (context.Request.Path.Value.StartsWith("/avatar/"))
         {
-            new RandomAvatarHandler().ProcessRequest(context);
-        }
-        catch (Exception ex)
-        {
-            await context.Response.WriteAsync(ex.ToString());
+            var avatarRender = context.RequestServices.GetService<AvatarRender>();
+            avatarRender?.ProcessRequest(context);
+            return;
         }
 
-        return;
-    }
-
-    if (context.Request.Path.Value.StartsWith("/face/"))
-    {
-        try
+        if (context.Request.Path.Value.StartsWith("/face/"))
         {
+            var avatarRender = context.RequestServices.GetService<AvatarRender>();
             //fixed seed
-            new RandomAvatarHandler
-            {
-                FixedSeed = true,
-                Seed = context.Request.Path.Value.Substring(6)
-            }.ProcessRequest(context);
+            avatarRender?.UseFixed().ProcessRequest(context);
         }
-        catch (Exception ex)
-        {
-            await context.Response.WriteAsync(ex.ToString());
-        }
-
-        return;
     }
-
-    await context.Response.WriteAsync("Hello World!");
+    catch (Exception ex)
+    {
+        await context.Response.WriteAsync(ex.ToString());
+    }
 });
 app.Run();
