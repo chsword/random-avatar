@@ -11,7 +11,7 @@ https://github.com/random-avatar/random-avatar
 docker pull chsword/random-avatar:v2.0-alpine
 docker run -d -p 80:80 chsword/random-avatar:v2.0-alpine
 ```
-**Docker的环境变量 **
+**Docker的环境变量**
 ```
 RANDOM_AVATAR_HOME：是否显示首页，默认值 true ，取值 true|false
 RANDOM_AVATAR_SYMMETRY：生成的图像是否对称，默认值 true，取值 true|false
